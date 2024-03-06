@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+
+</head>
+
+<body>
+    <div x-data="loginHandler()">
+        <form @submit.prevent="submit">
+            <input type="text" x-model="credentials.email" placeholder="email">
+            <input type="password" x-model="credentials.password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+
+        <template x-if="notification.show">
+            <div x-text="notification.message" :class="{ 'success': notification.success, 'error': !notification.success }">
+            </div>
+        </template>
+    </div>
+
+    <script>
+        function loginHandler() {
+            return {
+                credentials: {
+                    email: '',
+                    password: ''
+                },
+                notification: {
+                    show: false,
+                    message: '',
+                    success: false
+                },
+                async submit() {
+                    try {
+                        const response = await fetch('http://127.0.0.1:8000/api/v1/user/token/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(this.credentials)
+                        });
+
+                        if (!response.ok) throw new Error('Login failed!');
+
+                        const data = await response.json();
+
+                        // Handle success, for example, save the token, redirect, etc.
+                        this.notification = {
+                            show: true,
+                            success: true,
+                            message: 'Login successful!'
+                        };
+
+                        // You may want to clear the notification after some time or navigate to another page
+                        setTimeout(() => {
+                            this.notification.show = false;
+                        }, 3000);
+
+                    } catch (error) {
+                        this.notification = {
+                            show: true,
+                            success: false,
+                            message: error.message || 'An unexpected error occurred'
+                        };
+
+                        // Optionally clear the notification after some time
+                        setTimeout(() => {
+                            this.notification.show = false;
+                        }, 3000);
+                    }
+                }
+            };
+        }
+    </script>
+</body>
+
+</html>
