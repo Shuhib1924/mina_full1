@@ -9,19 +9,19 @@ from django.utils.text import slugify
 import shortuuid
 
 IDENTITY_TYPE = (
-    ("national_id_card", "National ID Card"),
-    ("drivers_licence", "Drives Licence"),
-    ("international_passport", "International Passport"),
+    ("national_id_card", "Personalausweiß"),
+    ("drivers_licence", "Führerschein"),
+    ("international_passport", "Passport"),
 )
 
 GENDER = (
-    ("male", "Male"),
-    ("female", "Female"),
+    ("male", "Mann"),
+    ("female", "Frau"),
 )
 
 CURRENCY = (
-    ("USD", "USD"),
     ("EUR", "EUR"),
+    ("USD", "USD"),
     ("GBP", "GBP"),
 )
 
@@ -49,14 +49,14 @@ NOTIFICATION_TYPE = (
 )
 
 PAYOUT_METHOD = (
-    ("payout_to_paypal", "Payout to Paypal"),
+    ("payout_to_paypal", "mit Paypal bezahlen"),
     # ("payout_to_stripe", "Payout to Stripe"),
     # ("payout_to_wallet", "Payout to Wallet"),
 )
 
 DISCOUNT_TYPE = (
-    ("Percentage", "Percentage"),
-    ("Flat Rate", "Flat Rate"),
+    ("Percentage", "Prozentual"),
+    ("Flat Rate", "Pauschalbetrag"),
 )
 
 # Create your models here.
@@ -86,7 +86,7 @@ class Vendor(models.Model):
     slug = models.SlugField(blank=True, null=True)
 
     class Meta:
-        verbose_name_plural = "Restaurants"
+        verbose_name_plural = "Kooperationspartner"
 
     def vendor_image(self):
         return mark_safe(

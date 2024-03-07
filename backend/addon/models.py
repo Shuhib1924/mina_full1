@@ -9,13 +9,13 @@ import datetime
 
 
 SERVICE_FEE_CHARGE_TYPE = (
-    ("percentage", "Percentage"),
-    ("flat_rate", "Flat Rate"),
+    ("percentage", "Prozentual"),
+    ("flat_rate", "Pauschalbetrag"),
 )
 
 AFFILIATE_COMMISSION_TYPE = (
-    ("percentage", "Percentage"),
-    ("flat_rate", "Flat Rate"),
+    ("percentage", "Prozentual"),
+    ("flat_rate", "Pauschalbetrag"),
 )
 
 
